@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { createExtractorFromData } from 'node-unrar-js/esm'
+import { useFileStore } from '../stores/file'
 import { ref } from 'vue'
 
-let src = ref(null)
+const store = useFileStore()
 
 function uploadFile(drop) {
 	if (drop.length == 0) return
@@ -26,22 +27,18 @@ function openComic(file) {
 		})
 		const list = extractor.getFileList()
 		const fileHeaders = [...list.fileHeaders] // load the file headers
+
 		const extracted = extractor.extract({
 			files: fileHeaders.map((fh) => fh.name),
 		})
 		const files = [...extracted.files]
-		files.forEach((f) => readPage(f.extraction))
-	}
-}
 
-function readPage(page) {
-	const blob = new Blob([page], { type: 'image/png' })
-	src.value = URL.createObjectURL(blob)
+		store.setPagesFromFiles(files)
+	}
 }
 </script>
 
 <template>
-	<img v-if="src" :src="src" />
 	<input
 		type="file"
 		name="uploader"

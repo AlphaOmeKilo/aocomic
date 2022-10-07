@@ -1,0 +1,27 @@
+:root {
+    --ao-white: #ffffff;
+    --ao-black: #1C1C1E;
+}
+  
+
+$white: var(--ao-white);
+$black: var(--ao-black);
+
+$colors: (
+	'white': $white,
+	'black': $black,
+);
+
+@each $name, $hex in $colors {
+	.#{$name} {
+		background-color: #{$hex};
+
+		&--text {
+			color: #{$hex};
+		}
+
+		&--border {
+			border: 0.125rem solid #{$hex};
+		}
+	}
+}

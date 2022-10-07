@@ -1,0 +1,17 @@
+@import './colors';
+@import './layout';
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background-color: var(--ao-black);
+  font-size: 14px;
+}
+
+
+main {
+  height: 100vh;
+}
